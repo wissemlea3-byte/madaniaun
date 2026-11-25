@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>منصة تفاعلية | العنف والتمييز العنصري</title>
+<style>
+:root{--ink:#172b35;--teal:#1f7774;--teal2:#e7f5f2;--gold:#f3c95b;--pink:#a52e68;--paper:#fffdf7;--muted:#65747b;--good:#18794e;--bad:#b42318}
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(135deg,#e7f4ef,#f8f0d8);color:var(--ink);line-height:1.8}
+header{background:linear-gradient(120deg,#135d60,#238c83);color:white;padding:30px 18px 36px;text-align:center;border-bottom:7px solid var(--gold)}
+header .tag{display:inline-block;background:#ffffff20;border:1px solid #ffffff66;padding:4px 14px;border-radius:99px;font-size:.9rem}
+h1{font-size:clamp(1.7rem,4vw,2.6rem);margin:8px 0 3px}
+header p{margin:0;color:#e5f7f2}
+.wrap{max-width:980px;margin:-18px auto 50px;padding:0 15px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;background:white;padding:12px;border-radius:18px;box-shadow:0 8px 25px #183c3c18}
+.nav button,.btn{border:0;border-radius:12px;padding:10px 17px;font:inherit;font-weight:bold;cursor:pointer;transition:.2s}
+.nav button{background:#edf5f3;color:#285c5b}
+.nav button.active,.btn.primary{background:var(--teal);color:white}
+button:hover{filter:brightness(.96);transform:translateY(-1px)}
+main{margin-top:18px}
+.panel{display:none;background:var(--paper);border:1px solid #e9dfbd;border-radius:20px;padding:clamp(18px,4vw,30px);box-shadow:0 10px 28px #183c3c12}
+.panel.active{display:block}
+h2{color:var(--pink);margin:0 0 14px;font-size:1.45rem}
+h3{margin:8px 0;color:#245e5c}
+.definition{padding:15px 17px;border-right:5px solid var(--gold);background:#fff8df;border-radius:12px;margin:12px 0}
+.definition strong{color:var(--pink)}
+ul{padding-right:22px}
+li{margin:7px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px;margin-top:14px}
+.card{background:white;border:1px solid #e6e6dc;border-radius:15px;padding:15px}
+.card .emoji{font-size:1.8rem}
+.note{color:var(--muted);font-size:.94rem}
+.quiz-top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.progress{height:9px;background:#e8eeeb;border-radius:99px;overflow:hidden;margin:10px 0 20px}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#2c9b87,#f0c44e);transition:width .3s}
+.question{font-size:1.2rem;font-weight:bold;margin:12px 0 16px}
+.answers{display:grid;gap:10px}
+.answer{width:100%;text-align:right;background:white;border:2px solid #e3e8e4;border-radius:12px;padding:12px 14px;font:inherit;cursor:pointer}
+.answer.selected{border-color:var(--teal);background:var(--teal2)}
+.answer.correct{border-color:#48a879;background:#e9f8ef}
+.answer.wrong{border-color:#df7770;background:#fff0ef}
+.feedback{margin:14px 0;padding:12px 14px;border-radius:12px;display:none}
+.feedback.show{display:block}
+.feedback.good{background:#e8f7ed;color:#145b3b}
+.feedback.bad{background:#fff0ef;color:#922b24}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn{background:#edf2ef;color:#244b49}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.result{text-align:center;padding:20px}
+.score{font-size:3rem;font-weight:bold;color:var(--teal);line-height:1.3}
+.match-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;margin:12px 0}
+.match-row select{width:100%;padding:10px;border:1px solid #cbd8d2;border-radius:10px;font:inherit;background:white}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:22px}
+@media(max-width:520px){.match-row{grid-template-columns:1fr}.nav button{flex:1 1 40%}}
+</style>
+</head>
+<body>
+<header>
+  <span class="tag">منصة تعليمية تفاعلية</span>
+  <h1>العنف والتمييز العنصري</h1>
+  <p>تعلّم • فكّر • اختبر معلوماتك</p>
+</header>
+<div class="wrap">
+  <nav class="nav" aria-label="أقسام المنصة">
+    <button class="active" data-tab="lesson">📘 الدرس</button>
+    <button data-tab="examples">🌍 أمثلة</button>
+    <button data-tab="quiz">🧠 اختبر نفسك</button>
+    <button data-tab="match">🔗 نشاط المطابقة</button>
+  </nav>
+  <main>
+    <section id="lesson" class="panel active">
+      <h2>1. مفاهيم أساسية</h2>
+      <div class="definition"><strong>مفهوم العنف:</strong> هو استعمال القوة لإيذاء الآخرين، جسديًا أو نفسيًا، أو الاعتداء على حقوقهم.</div>
+      <div class="definition"><strong>مفهوم التمييز العنصري:</strong> هو التفضيل بين الناس وعدم المساواة بينهم على أساس: الدين، والعرق، واللون، والجنس، واللغة.</div>
+      <h2 style="margin-top:25px">2. أسباب العنف والتمييز العنصري</h2>
+      <div class="cards">
+        <article class="card"><div class="emoji">❓</div><h3>الجهل وعدم التقبل</h3><p>الجهل وعدم تقبّل الاختلاف بين البشر.</p></article>
+        <article class="card"><div class="emoji">🧩</div><h3>التعصب</h3><p>التعصب للعرق أو اللون أو الأصل.</p></article>
+        <article class="card"><div class="emoji">🗯️</div><h3>الأحكام المسبقة</h3><p>انتشار الأفكار والأحكام المسبقة عن الناس أو المناطق.</p></article>
+        <article class="card"><div class="emoji">⛓️</div><h3>استغلال الآخرين</h3><p>الرغبة في استغلال الآخرين.</p></article>
+        <article class="card"><div class="emoji">🤝</div><h3>ضعف التربية</h3><p>ضعف التربية على التسامح واحترام حقوق الإنسان.</p></article>
+      </div>
+    </section>
+
+    <section id="examples" class="panel">
+      <h2>3. نماذج عن التمييز العنصري</h2>
+      <p class="note">تعرّف على الأمثلة المذكورة في الدرس، وفكّر في أثرها على كرامة الإنسان وحقوقه.</p>
+      <div class="cards">
+        <article class="card"><div class="emoji">⚖️</div><h3>نظام الأبارتايد</h3><p>نظام التمييز العنصري الذي طُبّق في جنوب إفريقيا، وكان قائمًا على التفضيل بين البيض والسود.</p></article>
+        <article class="card"><div class="emoji">🕊️</div><h3>الممارسات الصهيونية</h3><p>الممارسات الصهيونية ضد الفلسطينيين.</p></article>
+        <article class="card"><div class="emoji">🧍</div><h3>تجارة العبيد</h3><p>من النماذج التي يذكرها الدرس للتمييز العنصري.</p></article>
+        <article class="card"><div class="emoji">🏳️</div><h3>العنصرية والعنف ضد السود</h3><p>العنصرية والعنف ضد السود في بعض البلدان.</p></article>
+        <article class="card"><div class="emoji">🏟️</div><h3>الرياضة</h3><p>العنصرية والعنف في الرياضة بسبب الاختلافات في لون البشرة أو الأصول.</p></article>
+        <article class="card"><div class="emoji">💼</div><h3>سوق العمل</h3><p>العنصرية في سوق العمل بسبب لون البشرة أو الانتماء العرقي.</p></article>
+      </div>
+      <div class="definition"><strong>تذكّر:</strong> الاختلاف بين البشر ليس سببًا للتمييز أو الإيذاء؛ بل يجب احترام كرامة الجميع وحقوقهم.</div>
+    </section>
+
+    <section id="quiz" class="panel">
+      <div id="quizArea">
+        <div class="quiz-top"><h2>اختبر معلوماتك</h2><strong id="counter">السؤال 1 من 10</strong></div>
+        <div class="progress"><span id="bar"></span></div>
+        <div id="qText" class="question"></div>
+        <div id="answers" class="answers"></div>
+        <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+        <div class="actions">
+          <button class="btn primary" id="next" disabled>السؤال التالي ←</button>
+          <button class="btn" id="restart">إعادة الاختبار</button>
+        </div>
+      </div>
+      <div id="result" class="result" hidden>
+        <h2>انتهى الاختبار! 🎉</h2><div class="score" id="finalScore"></div>
+        <p id="message"></p><button class="btn primary" id="again">حاول مرة أخرى</button>
+      </div>
+    </section>
+
+    <section id="match" class="panel">
+      <h2>نشاط المطابقة</h2>
+      <p>اختر المعنى المناسب لكل مفهوم، ثم اضغط «تحقّق من الإجابات».</p>
+      <div id="matchRows"></div>
+      <div class="actions"><button class="btn primary" id="checkMatch">تحقّق من الإجابات</button><button class="btn" id="resetMatch">إعادة النشاط</button></div>
+      <div id="matchFeedback" class="feedback" role="status"></div>
+    </section>
+  </main>
+  <footer>إعداد تعليمي للمراجعة — العنف والتمييز العنصري</footer>
+</div>
+<script>
+const tabs=document.querySelectorAll('.nav button');
+tabs.forEach(b=>b.addEventListener('click',()=>{tabs.forEach(x=>x.classList.remove('active'));document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active')}));
+const questions=[
+ {q:'ما المقصود بالعنف حسب الدرس؟',a:['استعمال القوة لإيذاء الآخرين أو الاعتداء على حقوقهم','احترام اختلاف الناس','مساعدة الآخرين'],c:0,e:'العنف هو استعمال القوة لإيذاء الآخرين جسديًا أو نفسيًا أو الاعتداء على حقوقهم.'},
+ {q:'أيّ مما يأتي يُعدّ أساسًا من أسس التمييز العنصري؟',a:['الهواية','لون البشرة','نوع الطعام'],c:1,e:'من أسس التمييز المذكورة: الدين والعرق واللون والجنس واللغة.'},
+ {q:'ما المقصود بالتمييز العنصري؟',a:['المساواة بين جميع الناس','التفضيل بين الناس وعدم المساواة بينهم على أسس معينة','التعاون بين الشعوب'],c:1,e:'هو التفضيل بين الناس وعدم المساواة بينهم على أساس الدين أو العرق أو اللون أو الجنس أو اللغة.'},
+ {q:'في أي بلد طُبّق نظام الأبارتايد المذكور في الدرس؟',a:['جنوب إفريقيا','كندا','اليابان'],c:0,e:'يذكر الدرس نظام الأبارتايد الذي طُبّق في جنوب إفريقيا.'},
+ {q:'على أي أساس كان نظام الأبارتايد قائمًا؟',a:['التفضيل بين البيض والسود','التمييز بين اللغات فقط','الاختلاف في المهن'],c:0,e:'كان قائمًا على التفضيل بين البيض والسود.'},
+ {q:'أيّ مما يأتي ورد مثالًا في الدرس؟',a:['تجارة العبيد','التنافس الدراسي','اختلاف الأذواق الموسيقية'],c:0,e:'تجارة العبيد من النماذج المذكورة للتمييز العنصري.'},
+ {q:'من أسباب العنف والتمييز العنصري:',a:['تقبّل الاختلاف','الجهل وعدم تقبّل الاختلاف بين البشر','احترام حقوق الإنسان'],c:1,e:'الجهل وعدم تقبّل الاختلاف بين البشر من الأسباب المذكورة.'},
+ {q:'ما علاقة الأحكام المسبقة بالتمييز؟',a:['قد تؤدي إلى التمييز ضد أشخاص أو مناطق','تمنع كل أشكال التمييز','لا علاقة لها بالموضوع'],c:0,e:'انتشار الأفكار والأحكام المسبقة عن الناس أو المناطق من أسباب الظاهرة.'},
+ {q:'قد تظهر العنصرية في سوق العمل بسبب:',a:['لون البشرة أو الانتماء العرقي','الالتزام بالمواعيد','التعاون مع الزملاء'],c:0,e:'يشير الدرس إلى العنصرية في سوق العمل بسبب لون البشرة أو الانتماء العرقي.'},
+ {q:'أيّ سلوك يساعد على الحد من العنف والتمييز؟',a:['استغلال الآخرين','نشر الأحكام المسبقة','التربية على التسامح واحترام حقوق الإنسان'],c:2,e:'التربية على التسامح واحترام حقوق الإنسان تساعد على مواجهة العنف والتمييز.'}
+];
+let index=0,score=0,answered=false;
+const qText=document.getElementById('qText'),answers=document.getElementById('answers'),feedback=document.getElementById('feedback'),next=document.getElementById('next');
+function renderQ(){answered=false;next.disabled=true;feedback.className='feedback';feedback.textContent='';document.getElementById('counter').textContent=`السؤال ${index+1} من ${questions.length}`;document.getElementById('bar').style.width=`${index/questions.length*100}%`;let q=questions[index];qText.textContent=q.q;answers.innerHTML='';q.a.forEach((a,i)=>{let b=document.createElement('button');b.className='answer';b.textContent=`${['أ','ب','ج'][i]}. ${a}`;b.onclick=()=>choose(i,b);answers.appendChild(b)})}
+function choose(i,btn){if(answered)return;answered=true;let q=questions[index];[...answers.children].forEach((b,j)=>{b.disabled=true;if(j===q.c)b.classList.add('correct')});if(i===q.c){score++;feedback.className='feedback show good';feedback.textContent='أحسنت! إجابة صحيحة. '+q.e}else{btn.classList.add('wrong');feedback.className='feedback show bad';feedback.textContent='ليست الإجابة الصحيحة. '+q.e}next.disabled=false}
+function startQuiz(){index=0;score=0;document.getElementById('quizArea').hidden=false;document.getElementById('result').hidden=true;renderQ()}
+next.onclick=()=>{if(index<questions.length-1){index++;renderQ()}else{document.getElementById('bar').style.width='100%';document.getElementById('quizArea').hidden=true;document.getElementById('result').hidden=false;document.getElementById('finalScore').textContent=`${score} / ${questions.length}`;document.getElementById('message').textContent=score>=8?'ممتاز! فهمك للدرس رائع.':score>=5?'عمل جيد! راجع المفاهيم وحاول مجددًا.':'لا بأس، أعد قراءة الدرس ثم حاول مرة أخرى.'}};
+document.getElementById('restart').onclick=startQuiz;document.getElementById('again').onclick=startQuiz;startQuiz();
+const pairs=[['العنف','استعمال القوة لإيذاء الآخرين أو الاعتداء على حقوقهم'],['التمييز العنصري','التفضيل بين الناس وعدم المساواة بينهم على أسس معينة'],['الأبارتايد','نظام تمييز طُبّق في جنوب إفريقيا'],['من أسباب التمييز','الجهل والتعصب والأحكام المسبقة'],['مواجهة التمييز','التسامح واحترام حقوق الإنسان']];
+const options=['استعمال القوة لإيذاء الآخرين أو الاعتداء على حقوقهم','التفضيل بين الناس وعدم المساواة بينهم على أسس معينة','نظام تمييز طُبّق في جنوب إفريقيا','الجهل والتعصب والأحكام المسبقة','التسامح واحترام حقوق الإنسان'];
+function buildMatch(){let host=document.getElementById('matchRows');host.innerHTML='';pairs.forEach((p,i)=>{let row=document.createElement('div');row.className='match-row';let label=document.createElement('strong');label.textContent=p[0];let sel=document.createElement('select');sel.dataset.index=i;sel.innerHTML='<option value="">اختر المعنى المناسب</option>'+options.map((o,j)=>`<option value="${j}">${o}</option>`).join('');row.append(label,sel);host.appendChild(row)});document.getElementById('matchFeedback').className='feedback'}
+document.getElementById('checkMatch').onclick=()=>{let sels=[...document.querySelectorAll('#matchRows select')],correct=0;if(sels.some(s=>s.value==='')){let f=document.getElementById('matchFeedback');f.className='feedback show bad';f.textContent='أكمل جميع الاختيارات أولًا.';return}sels.forEach((s,i)=>{if(Number(s.value)===i)correct++});let f=document.getElementById('matchFeedback');f.className='feedback show '+(correct===pairs.length?'good':'bad');f.textContent=`نتيجتك: ${correct} من ${pairs.length}. `+(correct===pairs.length?'ممتاز، كل المطابقات صحيحة!':'راجع الدرس وحاول تصحيح المطابقات.')};
+document.getElementById('resetMatch').onclick=buildMatch;buildMatch();
+</script>
+</body>
+</html>
